@@ -9,8 +9,8 @@ app.get('/',(req,res)=>{
     res.send('<h1>天才就是我！</h1>');
 });
 
-//监听3000端口
-app.listen(3000,()=>{
+//监听8080端口
+app.listen(8080,()=>{
     console.log('服务器已启动');
 }); 
 
