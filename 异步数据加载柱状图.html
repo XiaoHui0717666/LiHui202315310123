@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../echarts.min.js"></script>
+    <script src="./jquery.min.js"></script>
+</head>
+<body>
+    <div id="box" style="width: 80vw; height: 80vh;"></div>
+</body>
+<script>
+    
+    var mEcharts=echarts.init(document.querySelector('#box'))
+    // 发起请求获得数据
+    mEcharts.showLoading({
+        text:"在催了,不要急"
+    });//加载前显示加载图标
+    $.get('./data.json',function(ret){
+        //数据加载完成之后隐藏图标
+        mEcharts.hideLoading();
+        console.log(ret)
+        var name=[]
+        var nan=[]
+        var nu=[]
+        for(i=0;i<12;i++){
+            if(i%2==0){name.push(ret.data[i].specName);}
+            if(i%2==1)nan.push(ret.data[i].value)
+            else nu.push(ret.data[i].value)
+        }console.log(nan)
+    var option = {
+            xAxis:{
+                type:'category',
+                data:name,
+            },
+            yAxis:{
+                type:'value',
+            },
+            series:[{
+                name:'销售总金额',
+                type:'bar',
+                data:nan
+            },{
+                name:'额外的销售金额',
+                type:'bar',
+                data:nu
+            }]
+        }
+        mEcharts.setOption(option)
+        })
+</script>
+</html>
